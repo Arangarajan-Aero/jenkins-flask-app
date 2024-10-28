@@ -3,9 +3,9 @@ pipeline {
         node {label "UAT"}
     }
     
-    tools {
-        dockerTool 'docker' 
-    }
+    // tools {
+    //     dockerTool 'docker' 
+    // }
     
     environment {
         IMAGE_NAME = "aero1602/simple-flask-app:${BUILD_NUMBER}"
