@@ -1,7 +1,8 @@
 pipeline {
-    agent {
-        node {label "UAT"}
-    }
+    agent any 
+    // {
+    //     node {label "UAT"}
+    // }
     
     // tools {
     //     dockerTool 'docker' 
@@ -23,7 +24,7 @@ pipeline {
         stage('Login to docker hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'Docker-hub-credentials', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                sh 'sudo docker login -u ${USERNAME} -p ${PASSWORD}'}
+                sh 'docker login -u ${USERNAME} -p ${PASSWORD}'}
                 echo 'Login successfully'
             }
         }
@@ -31,7 +32,7 @@ pipeline {
         {
             steps
             {
-                sh 'sudo docker build -t ${IMAGE_NAME} .'
+                sh 'docker build -t ${IMAGE_NAME} .'
                 echo "Docker image build successfully"
                 sh "sudo docker images"
             }
@@ -47,7 +48,7 @@ pipeline {
         {
             steps
             {
-                sh 'sudo docker push ${IMAGE_NAME}'
+                sh 'docker push ${IMAGE_NAME}'
                 echo "Docker image push successfully"
             }
         }
